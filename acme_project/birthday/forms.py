@@ -4,11 +4,18 @@ from django import forms
 from django.core.mail import send_mail
 
 # Импортируем класс модели Birthday.
-from .models import Birthday
+from .models import Birthday, Congratulation
 from .validators import real_age
 from django.core.exceptions import ValidationError
 
+
 BEATLES = {'Джон Леннон', 'Пол Маккартни', 'Джордж Харрисон', 'Ринго Старр'}
+
+
+class CongratulationForm(forms.ModelForm):
+    class Meta:
+        model = Congratulation
+        fields = ('text',)
 
 
 # Для использования формы с моделями меняем класс на forms.ModelForm.

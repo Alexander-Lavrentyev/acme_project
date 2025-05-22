@@ -8,7 +8,9 @@ from django.urls import include, path
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from django.urls import include, path, reverse_lazy
+from django.conf import settings
 
+handler404 = 'core.views.page_not_found'
 
 urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
@@ -26,3 +28,12 @@ urlpatterns = [
     path('birthday/', include('birthday.urls')),
     # В конце добавляем к списку вызов функции static.
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    # Добавить к списку urlpatterns список адресов
+    # из приложения debug_toolbar:
+    urlpatterns += (path('__debug__/', include(debug_toolbar.urls)),)
+
+# Подключаем функцию static() к urlpatterns:
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

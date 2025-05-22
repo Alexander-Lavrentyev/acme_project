@@ -13,5 +13,6 @@ urlpatterns = [
     path('<int:pk>/', views.BirthdayDetailView.as_view(), name='detail'),
     path('create/', views.BirthdayCreateView.as_view(), name='create'),
     path('login_only/', views.simple_view),
+    path('<int:pk>/comment/', views.add_comment, name='add_comment'),
 
 ]
